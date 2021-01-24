@@ -13,7 +13,7 @@ public class CompositeUserApplication {
     }
     
 	@Bean
-	RestTemplate restTemplate(HypermediaRestTemplateConfigurer configurer) {
+	RestTemplate restTemplate() {
 	  return new RestTemplate();
 	}
 }
