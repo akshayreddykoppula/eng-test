@@ -7,9 +7,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,35 +25,33 @@ import fitpay.engtest.compositeuser.service.CompositeUserService;
 @Service
 public class CompositeUserServiceImpl implements CompositeUserService {
 	
+	@Value("${fitpay.api.users.url}")
+	private String usersUrl;
+	
 	@Autowired
 	private RestTemplate restTemplate;
 
 	@Override
-	public EntityModel<User> findUserById(String userId, HttpEntity<String> request) {
+	public EntityModel<User> getUserById(String userId) {
 		Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("userId", userId);
 		
-		String USER_URL = "https://api.qa.fitpay.ninja/users/{userId}";
-		
-		ResponseEntity<EntityModel<User>> responseEntity = restTemplate.exchange(USER_URL, 
+		ResponseEntity<EntityModel<User>> responseEntity = restTemplate.exchange(usersUrl, 
 				HttpMethod.GET, 
-				request, 
+				null, 
 				new ParameterizedTypeReference<EntityModel<User>>() {}, uriVariables);
 		
 		return responseEntity.getBody();
 	}
 
 	@Override
-	public List<CreditCard> findUserCreditCardList(EntityModel<User> userResource, HttpEntity<String> request, Optional<String> creditCardState) {
+	public List<CreditCard> getUserCreditCardList(EntityModel<User> userResource, Optional<String> creditCardState) {
 		
-		String USER_CREDITCARDS_URL = userResource.getLinks().getLink("creditCards").get().getHref();
+		String userCreditCardsUrl = userResource.getLinks().getLink("creditCards").get().getHref();
 		
-		ResponseEntity<CreditCardList> creditCardListResponseEntity = restTemplate.exchange(USER_CREDITCARDS_URL, 
-				HttpMethod.GET, 
-				request, 
-				new ParameterizedTypeReference<CreditCardList>() {});
+		CreditCardList creditCardList = restTemplate.getForObject(userCreditCardsUrl, CreditCardList.class);
 		
-		List<CreditCard> userCreditCards =  creditCardListResponseEntity.getBody().getCreditCards();
+		List<CreditCard> userCreditCards =  creditCardList.getCreditCards();
 		
 		if(creditCardState.isPresent()) {
 			userCreditCards = userCreditCards.stream().filter(cc -> creditCardState.get().equals(cc.getState())).collect(Collectors.toList());
@@ -63,16 +61,13 @@ public class CompositeUserServiceImpl implements CompositeUserService {
 	}
 
 	@Override
-	public List<Device> findUserDeviceList(EntityModel<User> userResource, HttpEntity<String> request, Optional<String> deviceState) {
+	public List<Device> getUserDeviceList(EntityModel<User> userResource, Optional<String> deviceState) {
 		
-		String USER_DEVICES_URL = userResource.getLinks().getLink("devices").get().getHref();
+		String userDevicesUrl = userResource.getLinks().getLink("devices").get().getHref();
 		
-		ResponseEntity<DeviceList> deviceListResponseEntity = restTemplate.exchange(USER_DEVICES_URL, 
-				HttpMethod.GET, 
-				request, 
-				new ParameterizedTypeReference<DeviceList>() {});
+		DeviceList deviceList = restTemplate.getForObject(userDevicesUrl, DeviceList.class);
 		
-		List<Device> userDevices =  deviceListResponseEntity.getBody().getDevices();
+		List<Device> userDevices =  deviceList.getDevices();
 		
 		if(deviceState.isPresent()) {
 			userDevices = userDevices.stream().filter(d -> deviceState.get().equals(d.getState())).collect(Collectors.toList());
