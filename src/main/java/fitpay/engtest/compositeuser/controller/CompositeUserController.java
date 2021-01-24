@@ -26,7 +26,7 @@ public class CompositeUserController {
 	private CompositeUserService compositeUserService;
 	
 	@GetMapping("/compositeUsers/{userId}")
-	public CompositeUser retrieveCompositeUsers(@PathVariable String userId, Optional<String> creditCardState, Optional<String> deviceState) {
+	public CompositeUser retrieveCompositeUsers(@PathVariable String userId, Optional<String> creditCardState, Optional<String> deviceState) throws Exception {
 		
 		logger.info("Retrieving composite users. [HTTP method: GET, URI:  /compositeUsers/{userId}, PathVariable: " + userId + ", Query params: [creditCardState: " +  creditCardState + ", deviceState: "+ deviceState +"]]");
 		

@@ -11,9 +11,9 @@ import fitpay.engtest.compositeuser.entity.User;
 
 public interface CompositeUserService {
 
-	EntityModel<User> getUserById(String id);
+	EntityModel<User> getUserById(String id) throws Exception;
 	
-	List<CreditCard> getUserCreditCardList(String userCreditCardUrl, Optional<String> creditCardState);
+	List<CreditCard> getUserCreditCardList(String userCreditCardUrl, Optional<String> creditCardState) throws Exception;
 	
-	List<Device> getUserDeviceList(String userDeviceUrl, Optional<String> deviceState);
+	List<Device> getUserDeviceList(String userDeviceUrl, Optional<String> deviceState) throws Exception;
 }
