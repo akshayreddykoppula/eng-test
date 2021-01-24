@@ -13,7 +13,7 @@ public interface CompositeUserService {
 
 	EntityModel<User> getUserById(String id);
 	
-	List<CreditCard> getUserCreditCardList(EntityModel<User> userResource, Optional<String> creditCardState);
+	List<CreditCard> getUserCreditCardList(String userCreditCardUrl, Optional<String> creditCardState);
 	
-	List<Device> getUserDeviceList(EntityModel<User> userResource, Optional<String> deviceState);
+	List<Device> getUserDeviceList(String userDeviceUrl, Optional<String> deviceState);
 }

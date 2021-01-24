@@ -21,10 +21,11 @@ public class CompositeUserApplication {
     
 	@Bean
 	RestTemplate restTemplate() {
+		String accessToken = authenticationService.getOauthToken();
 		return new RestTemplateBuilder(rtb -> rtb.getInterceptors()
 				.add((request, body, execution) -> {
 					request.getHeaders()
-					.add("Authorization", "Bearer " + authenticationService.getOauthToken());
+					.add("Authorization", "Bearer " + accessToken);
 					return execution.execute(request, body);
 				})).build();
 	}
