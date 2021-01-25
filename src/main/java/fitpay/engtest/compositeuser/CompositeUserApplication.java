@@ -11,22 +11,20 @@ import fitpay.engtest.compositeuser.service.AuthenticationService;
 
 @SpringBootApplication
 public class CompositeUserApplication {
-	
-	@Autowired
-	private AuthenticationService authenticationService;
-	
+
+    @Autowired
+    private AuthenticationService authenticationService;
+
     public static void main(String[] args) {
         SpringApplication.run(CompositeUserApplication.class, args);
     }
-    
-	@Bean
-	RestTemplate restTemplate() {
-		String accessToken = authenticationService.getOauthToken();
-		return new RestTemplateBuilder(rtb -> rtb.getInterceptors()
-				.add((request, body, execution) -> {
-					request.getHeaders()
-					.add("Authorization", "Bearer " + accessToken);
-					return execution.execute(request, body);
-				})).build();
-	}
+
+    @Bean
+    RestTemplate restTemplate() {
+        String accessToken = authenticationService.getOauthToken();
+        return new RestTemplateBuilder(rtb -> rtb.getInterceptors().add((request, body, execution) -> {
+            request.getHeaders().add("Authorization", "Bearer " + accessToken);
+            return execution.execute(request, body);
+        })).build();
+    }
 }

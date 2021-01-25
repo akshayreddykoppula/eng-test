@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DeviceList {
 
-	@JsonProperty("results")
-	private List<Device> devices;
+    @JsonProperty("results")
+    private List<Device> devices;
 
-	public List<Device> getDevices() {
-		return devices;
-	}
+    public List<Device> getDevices() {
+        return devices;
+    }
 
-	public void setDevices(List<Device> devices) {
-		this.devices = devices;
-	}
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
 }

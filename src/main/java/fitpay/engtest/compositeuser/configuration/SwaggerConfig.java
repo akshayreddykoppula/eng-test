@@ -17,27 +17,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-	
-	public static final Contact DEFAULT_CONTACT = new Contact("Koppula Akshay Reddy", "", "rakshay76@gmail.com");
-	
-	public static final ApiInfo COMPOSITE_USER_API_INFO
-      = new ApiInfo(
-      "Composite user Api Documentation",
-      "Information about user, user credit cards and devices",
-      "0.1.0",
-      "urn:tos",
-      DEFAULT_CONTACT,
-      "Apache 2.0",
-      "http://www.apache.org/licenses/LICENSE-2.0",
-      new ArrayList<>());
 
-	public static final Set<String> DEFAULT_PRODUCERS_CONSUMERS = new HashSet<>(Arrays.asList("application/json","application/xml"));
+    public static final Contact DEFAULT_CONTACT = new Contact("Koppula Akshay Reddy", "", "rakshay76@gmail.com");
 
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.apiInfo(COMPOSITE_USER_API_INFO)
-				.produces(DEFAULT_PRODUCERS_CONSUMERS)
-				.consumes(DEFAULT_PRODUCERS_CONSUMERS);
-	}
+    public static final ApiInfo COMPOSITE_USER_API_INFO = new ApiInfo("Composite user Api Documentation",
+            "Information about user, user credit cards and devices", "0.1.0", "urn:tos", DEFAULT_CONTACT, "Apache 2.0",
+            "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList<>());
+
+    public static final Set<String> DEFAULT_PRODUCERS_CONSUMERS = new HashSet<>(
+            Arrays.asList("application/json", "application/xml"));
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(COMPOSITE_USER_API_INFO)
+                .produces(DEFAULT_PRODUCERS_CONSUMERS).consumes(DEFAULT_PRODUCERS_CONSUMERS);
+    }
 }

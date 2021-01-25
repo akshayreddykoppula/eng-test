@@ -18,24 +18,26 @@ import fitpay.engtest.compositeuser.entity.CompositeUser;
 @SpringBootTest
 @ActiveProfiles("test")
 public class CompositeUserControllerTest {
-	
-	@Value("${fitpay.api.valid.user.id}")
-	private String validUserId;
-	
-	@Autowired
-	CompositeUserController compositeUserController;
-	
+
+    @Value("${fitpay.api.valid.user.id}")
+    private String validUserId;
+
+    @Autowired
+    CompositeUserController compositeUserController;
+
     @Test
     public void testRetrieveCompositeUsers_withQueryParams() throws Exception {
-    	CompositeUser compositeUser = compositeUserController.retrieveCompositeUsers(validUserId, Optional.of("ACTIVE"), Optional.of("INITIALIZED"));
+        CompositeUser compositeUser = compositeUserController.retrieveCompositeUsers(validUserId, Optional.of("ACTIVE"),
+                Optional.of("INITIALIZED"));
         assertEquals(compositeUser.getUserId(), validUserId);
         assertEquals(compositeUser.getCreditCardIds().size(), 2);
         assertEquals(compositeUser.getDeviceIds().size(), 2);
     }
-    
+
     @Test
     public void testRetrieveCompositeUsers_withoutQueryParams() throws Exception {
-    	CompositeUser compositeUser = compositeUserController.retrieveCompositeUsers(validUserId, Optional.ofNullable(null), Optional.ofNullable(null));
+        CompositeUser compositeUser = compositeUserController.retrieveCompositeUsers(validUserId,
+                Optional.ofNullable(null), Optional.ofNullable(null));
         assertEquals(compositeUser.getUserId(), validUserId);
         assertEquals(compositeUser.getCreditCardIds().size(), 3);
         assertEquals(compositeUser.getDeviceIds().size(), 2);
