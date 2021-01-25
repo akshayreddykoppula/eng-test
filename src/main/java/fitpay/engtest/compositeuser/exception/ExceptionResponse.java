@@ -2,7 +2,6 @@ package fitpay.engtest.compositeuser.exception;
 
 import java.util.Date;
 
-//Standard exception response across the application
 public class ExceptionResponse {
 
 	private Date timestamp;
