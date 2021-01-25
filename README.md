@@ -13,13 +13,13 @@ API resource created that will decrease the number of network calls being made.
 * Your solution can ideally be launched with a single command, if not instructions MUST be provided so we can test your new API
   * Example `mvn spring-boot:run`
   
-### Tests Run (new)
+### To Run Tests (new)
 
 ```
 mvn clean test
 ```
 
-### Application Run (new)
+### To Run Application (new)
 
 ```
 mvn spring-boot:run
