@@ -26,7 +26,7 @@ mvn spring-boot:run
 ```
 
 ### Swagger UI (new)
-I have also configured swagger for testing composite users Restful APIs. Once the application started running, use the below swagger UI to testing,
+I have also configured swagger for testing composite users Restful APIs. Once the application has started running, use the below swagger UI for testing,
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
