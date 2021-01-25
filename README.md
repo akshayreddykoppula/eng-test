@@ -12,6 +12,24 @@ API resource created that will decrease the number of network calls being made.
 * You're familiar with [curl](https://curl.haxx.se) for testing Restful APIs
 * Your solution can ideally be launched with a single command, if not instructions MUST be provided so we can test your new API
   * Example `mvn spring-boot:run`
+  
+### Tests Run (new)
+
+```
+mvn clean test
+```
+
+### Application Run (new)
+
+```
+mvn spring-boot:run
+```
+
+### Swagger UI (new)
+I have also configured swagger for testing composite users Restful APIs. Once the application started running, use the below swagger UI to testing,
+```
+http://localhost:8080/swagger-ui/index.html
+```
 
 ### Overview
 
